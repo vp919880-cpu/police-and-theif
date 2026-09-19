@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Police & Thief</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="game-container">
+
+    <h1>👮 Police & Thief 🕵️</h1>
+    <p class="subtitle">Find the hidden Thief!</p>
+
+
+    <!-- PLAYER COUNT -->
+    <div id="playerCountScreen" class="screen">
+
+        <h2>👥 Number of Players</h2>
+
+        <p>Select how many people are playing.</p>
+
+        <select id="playerCount">
+
+            <option value="3">3 Players</option>
+            <option value="4">4 Players</option>
+            <option value="5" selected>5 Players</option>
+            <option value="6">6 Players</option>
+            <option value="7">7 Players</option>
+            <option value="8">8 Players</option>
+
+        </select>
+
+        <button onclick="selectPlayerCount()">
+            Continue →
+        </button>
+
+    </div>
+
+
+    <!-- NAME SCREEN -->
+    <div id="nameScreen" class="screen hidden">
+
+        <h2>👥 Enter Player Names</h2>
+
+        <p id="playerCountText"></p>
+
+        <div id="nameInputs"></div>
+
+        <button onclick="startGame()">
+            🎲 Start Game
+        </button>
+
+        <button class="secondary" onclick="goBackToCount()">
+            ← Back
+        </button>
+
+    </div>
+
+
+    <!-- ROLE INFORMATION -->
+    <div id="characterScreen" class="screen hidden">
+
+        <h2>🎭 Characters</h2>
+
+        <div id="characterList"></div>
+
+        <button onclick="startRoleReveal()">
+            Continue →
+        </button>
+
+    </div>
+
+
+    <!-- ROLE REVEAL -->
+    <div id="roleScreen" class="screen hidden">
+
+        <h2 id="currentPlayer"></h2>
+
+        <p>
+            Pass the phone to this player.
+        </p>
+
+        <button id="revealButton" onclick="revealRole()">
+            👀 Reveal My Role
+        </button>
+
+        <div id="roleDisplay"></div>
+
+        <button
+            id="nextButton"
+            class="hidden"
+            onclick="nextPlayer()">
+
+            Next Player →
+
+        </button>
+
+    </div>
+
+
+    <!-- POLICE SCREEN -->
+    <div id="policeScreen" class="screen hidden">
+
+        <h2>👮 Police Investigation</h2>
+
+        <p id="policeMessage"></p>
+
+        <div id="guessButtons"></div>
+
+    </div>
+
+
+    <!-- RESULT -->
+    <div id="resultScreen" class="screen hidden">
+
+        <h2 id="resultTitle"></h2>
+
+        <p id="resultMessage"></p>
+
+        <div id="scoreBoard"></div>
+
+        <button onclick="newGame()">
+            🔄 New Game
+        </button>
+
+    </div>
+
+</div>
+
+
+<script src="script.js"></script>
+
+</body>
+</html>
