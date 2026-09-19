@@ -2,7 +2,6 @@
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
 
     <meta
@@ -16,7 +15,6 @@
         rel="stylesheet"
         href="style.css"
     >
-
 </head>
 
 
@@ -31,9 +29,9 @@
     </p>
 
 
-    <!-- =====================================
+    <!-- =========================================
          GAME MODE SCREEN
-    ====================================== -->
+    ========================================== -->
 
     <div
         id="gameModeScreen"
@@ -46,31 +44,24 @@
             How do you want to play?
         </p>
 
-
         <button
             onclick="selectGameMode('offline')"
         >
-
             📱 Offline Game
-
         </button>
-
 
         <button
             onclick="selectGameMode('online')"
         >
-
             🌐 Online Game
-
         </button>
 
     </div>
 
 
-
-    <!-- =====================================
-         PLAYER COUNT
-    ====================================== -->
+    <!-- =========================================
+         PLAYER COUNT SCREEN
+    ========================================== -->
 
     <div
         id="playerCountScreen"
@@ -82,7 +73,6 @@
         <p>
             Select how many people are playing.
         </p>
-
 
         <select id="playerCount">
 
@@ -115,32 +105,25 @@
 
         </select>
 
-
         <button
             onclick="selectPlayerCount()"
         >
-
             Continue →
-
         </button>
-
 
         <button
             class="secondary"
             onclick="backToGameMode()"
         >
-
             ← Back
-
         </button>
 
     </div>
 
 
-
-    <!-- =====================================
-         NAME SCREEN
-    ====================================== -->
+    <!-- =========================================
+         PLAYER NAME SCREEN
+    ========================================== -->
 
     <div
         id="nameScreen"
@@ -153,32 +136,25 @@
 
         <div id="nameInputs"></div>
 
-
         <button
             onclick="startGame()"
         >
-
             🎲 Start Game
-
         </button>
-
 
         <button
             class="secondary"
             onclick="goBackToCount()"
         >
-
             ← Back
-
         </button>
 
     </div>
 
 
-
-    <!-- =====================================
-         ROLE INFORMATION
-    ====================================== -->
+    <!-- =========================================
+         CHARACTER SCREEN
+    ========================================== -->
 
     <div
         id="characterScreen"
@@ -189,22 +165,18 @@
 
         <div id="characterList"></div>
 
-
         <button
             onclick="startRoleReveal()"
         >
-
             Continue →
-
         </button>
 
     </div>
 
 
-
-    <!-- =====================================
-         ROLE REVEAL
-    ====================================== -->
+    <!-- =========================================
+         ROLE REVEAL SCREEN
+    ========================================== -->
 
     <div
         id="roleScreen"
@@ -217,37 +189,29 @@
             Pass the phone to this player.
         </p>
 
-
         <button
             id="revealButton"
             onclick="revealRole()"
         >
-
             👀 Reveal My Role
-
         </button>
 
-
         <div id="roleDisplay"></div>
-
 
         <button
             id="nextButton"
             class="hidden"
             onclick="nextPlayer()"
         >
-
             Next Player →
-
         </button>
 
     </div>
 
 
-
-    <!-- =====================================
+    <!-- =========================================
          POLICE SCREEN
-    ====================================== -->
+    ========================================== -->
 
     <div
         id="policeScreen"
@@ -263,10 +227,9 @@
     </div>
 
 
-
-    <!-- =====================================
-         RESULT
-    ====================================== -->
+    <!-- =========================================
+         RESULT SCREEN
+    ========================================== -->
 
     <div
         id="resultScreen"
@@ -279,13 +242,10 @@
 
         <div id="scoreBoard"></div>
 
-
         <button
             onclick="newGame()"
         >
-
             🔄 New Game
-
         </button>
 
     </div>
@@ -293,6 +253,10 @@
 
 </div>
 
+
+<!-- =========================================
+     JAVASCRIPT
+========================================== -->
 
 <script src="script.js"></script>
 
