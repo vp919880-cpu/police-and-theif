@@ -12,6 +12,35 @@ let thiefIndex = -1;
 
 let roundNumber = 1;
 
+function selectGameMode(mode) {
+
+    gameMode = mode;
+
+    if (mode === "offline") {
+
+        document.getElementById("gameModeScreen").classList.add("hidden");
+
+        document.getElementById("playerCountScreen").classList.remove("hidden");
+
+    }
+
+    else if (mode === "online") {
+
+        alert("🌐 Online multiplayer is coming soon!");
+
+    }
+
+}
+
+
+function backToGameMode() {
+
+    document.getElementById("playerCountScreen").classList.add("hidden");
+
+    document.getElementById("gameModeScreen").classList.remove("hidden");
+
+}
+
 
 /*
 =========================================
