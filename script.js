@@ -1,3 +1,5 @@
+let gameMode = "";
+
 let players = [];
 
 let playerCount = 5;
@@ -176,6 +178,43 @@ function shuffle(array) {
     }
 
     return array;
+
+}
+/*
+=========================================
+SELECT GAME MODE
+=========================================
+*/
+
+function selectGameMode(mode) {
+
+    gameMode = mode;
+
+    if (mode === "online") {
+
+        alert("🌐 Online multiplayer is coming soon!");
+
+        return;
+
+    }
+
+    document.getElementById("gameModeScreen").classList.add("hidden");
+
+    document.getElementById("playerCountScreen").classList.remove("hidden");
+}
+
+
+/*
+=========================================
+BACK TO GAME MODE
+=========================================
+*/
+
+function backToGameMode() {
+
+    document.getElementById("playerCountScreen").classList.add("hidden");
+
+    document.getElementById("gameModeScreen").classList.remove("hidden");
 
 }
 
