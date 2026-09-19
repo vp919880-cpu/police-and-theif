@@ -8,6 +8,8 @@ let policeIndex = -1;
 
 let thiefIndex = -1;
 
+let roundNumber = 1;
+
 
 /*
 =========================================
@@ -76,102 +78,55 @@ GET CHARACTERS BASED ON PLAYER COUNT
 
 function getCharacters(count) {
 
-    /*
-    3 Players
-    King
-    Police
-    Thief
-    */
-
     if (count === 3) {
 
         return [
-
-            allCharacters[0], // King
-            allCharacters[3], // Police
-            allCharacters[4]  // Thief
-
+            allCharacters[0],
+            allCharacters[3],
+            allCharacters[4]
         ];
 
     }
-
-
-    /*
-    4 Players
-    King
-    Queen
-    Police
-    Thief
-    */
 
     if (count === 4) {
 
         return [
-
-            allCharacters[0], // King
-            allCharacters[1], // Queen
-            allCharacters[3], // Police
-            allCharacters[4]  // Thief
-
+            allCharacters[0],
+            allCharacters[1],
+            allCharacters[3],
+            allCharacters[4]
         ];
 
     }
 
-
-    /*
-    5 Players
-    King
-    Queen
-    Pawn
-    Police
-    Thief
-    */
-
     if (count === 5) {
 
         return [
-
             allCharacters[0],
             allCharacters[1],
             allCharacters[2],
             allCharacters[3],
             allCharacters[4]
-
         ];
 
     }
 
-
-    /*
-    6 Players
-    Add Minister
-    */
-
     if (count === 6) {
 
         return [
-
             allCharacters[0],
             allCharacters[1],
             allCharacters[2],
             allCharacters[3],
             allCharacters[4],
             allCharacters[5]
-
         ];
 
     }
 
-
-    /*
-    7 Players
-    Add Guard
-    */
-
     if (count === 7) {
 
         return [
-
             allCharacters[0],
             allCharacters[1],
             allCharacters[2],
@@ -179,21 +134,13 @@ function getCharacters(count) {
             allCharacters[4],
             allCharacters[5],
             allCharacters[6]
-
         ];
 
     }
 
-
-    /*
-    8 Players
-    Add Spy
-    */
-
     if (count === 8) {
 
         return [
-
             allCharacters[0],
             allCharacters[1],
             allCharacters[2],
@@ -202,10 +149,33 @@ function getCharacters(count) {
             allCharacters[5],
             allCharacters[6],
             allCharacters[7]
-
         ];
 
     }
+
+}
+
+
+/*
+=========================================
+SHUFFLE
+=========================================
+*/
+
+function shuffle(array) {
+
+    for (let i = array.length - 1; i > 0; i--) {
+
+        const j = Math.floor(
+            Math.random() * (i + 1)
+        );
+
+        [array[i], array[j]] =
+            [array[j], array[i]];
+
+    }
+
+    return array;
 
 }
 
@@ -219,7 +189,6 @@ SELECT PLAYER COUNT
 function selectPlayerCount() {
 
     playerCount =
-
         parseInt(
             document.getElementById(
                 "playerCount"
@@ -240,7 +209,6 @@ function selectPlayerCount() {
     document.getElementById(
         "playerCountText"
     ).innerText =
-
         "Enter names for " +
         playerCount +
         " players.";
@@ -260,7 +228,6 @@ CREATE NAME INPUTS
 function createNameInputs() {
 
     const container =
-
         document.getElementById(
             "nameInputs"
         );
@@ -276,7 +243,6 @@ function createNameInputs() {
     ) {
 
         const input =
-
             document.createElement(
                 "input"
             );
@@ -318,15 +284,6 @@ function goBackToCount() {
     ).classList.remove("hidden");
 
 }
-function shuffle(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-
-        [array[i], array[j]] = [array[j], array[i]];
-    }
-
-    return array;
-}
 
 
 /*
@@ -338,6 +295,8 @@ START GAME
 function startGame() {
 
     players = [];
+
+    roundNumber = 1;
 
 
     /*
@@ -351,7 +310,6 @@ function startGame() {
     ) {
 
         const input =
-
             document.getElementById(
                 "player" + i
             );
@@ -380,15 +338,50 @@ function startGame() {
 
             role: null,
 
-            points: 0
+            // Points earned in current round
+            points: 0,
+
+            // Total points from all rounds
+            totalPoints: 0
 
         });
 
     }
 
 
+    startNewRound();
+
+}
+
+
+/*
+=========================================
+START NEW ROUND
+=========================================
+*/
+
+function startNewRound() {
+
+    currentPlayer = 0;
+
+    policeIndex = -1;
+
+    thiefIndex = -1;
+
+
     /*
-    Get correct characters
+    Reset current round points
+    */
+
+    players.forEach(player => {
+
+        player.points = 0;
+
+    });
+
+
+    /*
+    Get characters
     */
 
     let characters =
@@ -422,7 +415,6 @@ function startGame() {
     */
 
     policeIndex =
-
         players.findIndex(
             player =>
                 player.role.name === "Police"
@@ -434,7 +426,6 @@ function startGame() {
     */
 
     thiefIndex =
-
         players.findIndex(
             player =>
                 player.role.name === "Thief"
@@ -454,6 +445,11 @@ function startGame() {
 
 
     document.getElementById(
+        "resultScreen"
+    ).classList.add("hidden");
+
+
+    document.getElementById(
         "characterScreen"
     ).classList.remove("hidden");
 
@@ -469,13 +465,23 @@ SHOW CHARACTER LIST
 function showCharacters() {
 
     const container =
-
         document.getElementById(
             "characterList"
         );
 
 
     container.innerHTML = "";
+
+
+    const heading =
+        document.createElement("p");
+
+    heading.innerHTML =
+        "<b>Round " +
+        roundNumber +
+        "</b>";
+
+    container.appendChild(heading);
 
 
     players.forEach(player => {
@@ -503,6 +509,7 @@ function showCharacters() {
                 </div>
 
                 <div class="character-points">
+
                     ${
                         player.role.name === "Police" ||
                         player.role.name === "Thief"
@@ -516,6 +523,7 @@ function showCharacters() {
                         player.role.points +
                         " points"
                     }
+
                 </div>
 
             </div>
@@ -732,7 +740,6 @@ function startPoliceRound() {
 
 
     const buttons =
-
         document.getElementById(
             "guessButtons"
         );
@@ -743,7 +750,6 @@ function startPoliceRound() {
 
     players.forEach(
         (player, index) => {
-
 
             /*
             Police cannot select themselves
@@ -859,6 +865,19 @@ function makeGuess(guessIndex) {
     });
 
 
+    /*
+    ADD THIS ROUND'S POINTS
+    TO TOTAL POINTS
+    */
+
+    players.forEach(player => {
+
+        player.totalPoints +=
+            player.points;
+
+    });
+
+
     showResult(correct);
 
 }
@@ -889,7 +908,9 @@ function showResult(correct) {
         ).innerHTML =
 
             `<span class="correct">
+
                 🎉 Correct Guess!
+
             </span>`;
 
 
@@ -910,7 +931,9 @@ function showResult(correct) {
         ).innerHTML =
 
             `<span class="wrong">
+
                 ❌ Wrong Guess!
+
             </span>`;
 
 
@@ -929,18 +952,199 @@ function showResult(correct) {
 
     showScoreboard();
 
+
+    /*
+    CREATE NEXT ROUND BUTTON
+    */
+
+    const resultScreen =
+        document.getElementById(
+            "resultScreen"
+        );
+
+
+    /*
+    Remove old game buttons
+    */
+
+    const oldButtons =
+        document.getElementById(
+            "roundButtons"
+        );
+
+
+    if (oldButtons) {
+
+        oldButtons.remove();
+
+    }
+
+
+    const buttonContainer =
+        document.createElement("div");
+
+
+    buttonContainer.id =
+        "roundButtons";
+
+
+    buttonContainer.innerHTML = `
+
+        <button onclick="nextRound()">
+
+            🎲 Next Round
+
+        </button>
+
+        <button
+            class="secondary"
+            onclick="stopGame()">
+
+            🛑 Stop Game
+
+        </button>
+
+    `;
+
+
+    resultScreen.appendChild(
+        buttonContainer
+    );
+
 }
 
 
 /*
 =========================================
-SCOREBOARD
+NEXT ROUND
+=========================================
+*/
+
+function nextRound() {
+
+    roundNumber++;
+
+    startNewRound();
+
+}
+
+
+/*
+=========================================
+STOP GAME
+=========================================
+*/
+
+function stopGame() {
+
+    /*
+    Hide current screens
+    */
+
+    document.getElementById(
+        "characterScreen"
+    ).classList.add("hidden");
+
+
+    document.getElementById(
+        "roleScreen"
+    ).classList.add("hidden");
+
+
+    document.getElementById(
+        "policeScreen"
+    ).classList.add("hidden");
+
+
+    /*
+    Show final result
+    */
+
+    document.getElementById(
+        "resultScreen"
+    ).classList.remove("hidden");
+
+
+    document.getElementById(
+        "resultTitle"
+    ).innerHTML =
+
+        `<span class="correct">
+
+            🏆 Final Scores
+
+        </span>`;
+
+
+    document.getElementById(
+        "resultMessage"
+    ).innerText =
+
+        "Game stopped after " +
+        roundNumber +
+        " round(s).";
+
+
+    showFinalScoreboard();
+
+
+    /*
+    Remove round buttons
+    */
+
+    const roundButtons =
+        document.getElementById(
+            "roundButtons"
+        );
+
+
+    if (roundButtons) {
+
+        roundButtons.remove();
+
+    }
+
+
+    /*
+    Add New Game button
+    */
+
+    const newGameButton =
+        document.createElement("button");
+
+
+    newGameButton.innerText =
+        "🔄 New Game";
+
+
+    newGameButton.onclick =
+        function () {
+
+            newGame();
+
+        };
+
+
+    document.getElementById(
+        "resultScreen"
+    ).appendChild(
+        newGameButton
+    );
+
+}
+
+
+/*
+=========================================
+ROUND SCOREBOARD
 =========================================
 */
 
 function showScoreboard() {
 
     let html = `
+
+        <h3>Round ${roundNumber} Scores</h3>
 
         <table class="score-table">
 
@@ -955,7 +1159,11 @@ function showScoreboard() {
                 </th>
 
                 <th>
-                    Points
+                    Round Points
+                </th>
+
+                <th>
+                    Total
                 </th>
 
             </tr>
@@ -981,6 +1189,90 @@ function showScoreboard() {
                 <td>
                     <b>
                         ${player.points}
+                    </b>
+                </td>
+
+                <td>
+                    <b>
+                        ${player.totalPoints}
+                    </b>
+                </td>
+
+            </tr>
+
+        `;
+
+    });
+
+
+    html += `
+
+        </table>
+
+    `;
+
+
+    document.getElementById(
+        "scoreBoard"
+    ).innerHTML = html;
+
+}
+
+
+/*
+=========================================
+FINAL SCOREBOARD
+=========================================
+*/
+
+function showFinalScoreboard() {
+
+    let html = `
+
+        <h3>🏆 Total Points After ${roundNumber} Rounds</h3>
+
+        <table class="score-table">
+
+            <tr>
+
+                <th>
+                    Player
+                </th>
+
+                <th>
+                    Total Points
+                </th>
+
+            </tr>
+
+    `;
+
+
+    /*
+    Sort players by total points
+    */
+
+    const finalPlayers =
+        [...players].sort(
+            (a, b) =>
+                b.totalPoints -
+                a.totalPoints
+        );
+
+
+    finalPlayers.forEach(player => {
+
+        html += `
+
+            <tr>
+
+                <td>
+                    ${player.name}
+                </td>
+
+                <td>
+                    <b>
+                        ${player.totalPoints}
                     </b>
                 </td>
 
