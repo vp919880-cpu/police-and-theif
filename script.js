@@ -1,3 +1,7 @@
+// =========================================
+// GAME VARIABLES
+// =========================================
+
 let gameMode = "";
 
 let players = [];
@@ -10,7 +14,10 @@ let policeIndex = -1;
 
 let thiefIndex = -1;
 
-let roundNumber = 1;
+
+// =========================================
+// SELECT GAME MODE
+// =========================================
 
 function selectGameMode(mode) {
 
@@ -18,9 +25,13 @@ function selectGameMode(mode) {
 
     if (mode === "offline") {
 
-        document.getElementById("gameModeScreen").classList.add("hidden");
+        document
+            .getElementById("gameModeScreen")
+            .classList.add("hidden");
 
-        document.getElementById("playerCountScreen").classList.remove("hidden");
+        document
+            .getElementById("playerCountScreen")
+            .classList.remove("hidden");
 
     }
 
@@ -33,253 +44,165 @@ function selectGameMode(mode) {
 }
 
 
+// =========================================
+// BACK TO GAME MODE
+// =========================================
+
 function backToGameMode() {
 
-    document.getElementById("playerCountScreen").classList.add("hidden");
+    document
+        .getElementById("playerCountScreen")
+        .classList.add("hidden");
 
-    document.getElementById("gameModeScreen").classList.remove("hidden");
+    document
+        .getElementById("gameModeScreen")
+        .classList.remove("hidden");
 
 }
 
 
-/*
-=========================================
-CHARACTER DEFINITIONS
-=========================================
-*/
+// =========================================
+// CHARACTER DEFINITIONS
+// =========================================
 
-const allCharacters = [
+const characters = {
 
-    {
-        name: "King",
+    King: {
         emoji: "👑",
         points: 1000
     },
 
-    {
-        name: "Queen",
+    Queen: {
         emoji: "👸",
         points: 500
     },
 
-    {
-        name: "Pawn",
+    Minister: {
+        emoji: "🎩",
+        points: 300
+    },
+
+    Spy: {
+        emoji: "🕵️",
+        points: 250
+    },
+
+    Pawn: {
         emoji: "♟️",
         points: 200
     },
 
-    {
-        name: "Police",
-        emoji: "👮",
-        points: 0
-    },
-
-    {
-        name: "Thief",
-        emoji: "🕵️",
-        points: 0
-    },
-
-    {
-        name: "Minister",
-        emoji: "🧙",
-        points: 300
-    },
-
-    {
-        name: "Guard",
+    Guard: {
         emoji: "💂",
         points: 150
     },
 
-    {
-        name: "Spy",
+    Police: {
+        emoji: "👮",
+        points: 100
+    },
+
+    Thief: {
         emoji: "🥷",
-        points: 250
+        points: 0
     }
 
-];
+};
 
 
-/*
-=========================================
-GET CHARACTERS BASED ON PLAYER COUNT
-=========================================
-*/
+// =========================================
+// GET CHARACTERS BASED ON PLAYER COUNT
+// =========================================
 
 function getCharacters(count) {
 
-    if (count === 3) {
+    const roleSets = {
 
-        return [
-            allCharacters[0],
-            allCharacters[3],
-            allCharacters[4]
-        ];
+        3: [
+            "King",
+            "Police",
+            "Thief"
+        ],
 
-    }
+        4: [
+            "King",
+            "Queen",
+            "Police",
+            "Thief"
+        ],
 
-    if (count === 4) {
+        5: [
+            "King",
+            "Queen",
+            "Pawn",
+            "Police",
+            "Thief"
+        ],
 
-        return [
-            allCharacters[0],
-            allCharacters[1],
-            allCharacters[3],
-            allCharacters[4]
-        ];
+        6: [
+            "King",
+            "Queen",
+            "Minister",
+            "Police",
+            "Thief",
+            "Pawn"
+        ],
 
-    }
+        7: [
+            "King",
+            "Queen",
+            "Minister",
+            "Pawn",
+            "Police",
+            "Guard",
+            "Thief"
+        ],
 
-    if (count === 5) {
+        8: [
+            "King",
+            "Queen",
+            "Minister",
+            "Spy",
+            "Pawn",
+            "Police",
+            "Guard",
+            "Thief"
+        ]
 
-        return [
-            allCharacters[0],
-            allCharacters[1],
-            allCharacters[2],
-            allCharacters[3],
-            allCharacters[4]
-        ];
+    };
 
-    }
-
-    if (count === 6) {
-
-        return [
-            allCharacters[0],
-            allCharacters[1],
-            allCharacters[2],
-            allCharacters[3],
-            allCharacters[4],
-            allCharacters[5]
-        ];
-
-    }
-
-    if (count === 7) {
-
-        return [
-            allCharacters[0],
-            allCharacters[1],
-            allCharacters[2],
-            allCharacters[3],
-            allCharacters[4],
-            allCharacters[5],
-            allCharacters[6]
-        ];
-
-    }
-
-    if (count === 8) {
-
-        return [
-            allCharacters[0],
-            allCharacters[1],
-            allCharacters[2],
-            allCharacters[3],
-            allCharacters[4],
-            allCharacters[5],
-            allCharacters[6],
-            allCharacters[7]
-        ];
-
-    }
+    return roleSets[count] || roleSets[5];
 
 }
 
 
-/*
-=========================================
-SHUFFLE
-=========================================
-*/
-
-function shuffle(array) {
-
-    for (let i = array.length - 1; i > 0; i--) {
-
-        const j = Math.floor(
-            Math.random() * (i + 1)
-        );
-
-        [array[i], array[j]] =
-            [array[j], array[i]];
-
-    }
-
-    return array;
-
-}
-/*
-=========================================
-SELECT GAME MODE
-=========================================
-*/
-
-function selectGameMode(mode) {
-
-    gameMode = mode;
-
-    if (mode === "online") {
-
-        alert("🌐 Online multiplayer is coming soon!");
-
-        return;
-
-    }
-
-    document.getElementById("gameModeScreen").classList.add("hidden");
-
-    document.getElementById("playerCountScreen").classList.remove("hidden");
-}
-
-
-/*
-=========================================
-BACK TO GAME MODE
-=========================================
-*/
-
-function backToGameMode() {
-
-    document.getElementById("playerCountScreen").classList.add("hidden");
-
-    document.getElementById("gameModeScreen").classList.remove("hidden");
-
-}
-
-
-/*
-=========================================
-SELECT PLAYER COUNT
-=========================================
-*/
+// =========================================
+// SELECT PLAYER COUNT
+// =========================================
 
 function selectPlayerCount() {
 
+    const select =
+        document.getElementById("playerCount");
+
     playerCount =
-        parseInt(
-            document.getElementById(
-                "playerCount"
-            ).value
-        );
+        parseInt(select.value);
 
 
-    document.getElementById(
-        "playerCountScreen"
-    ).classList.add("hidden");
+    document
+        .getElementById("playerCountScreen")
+        .classList.add("hidden");
 
 
-    document.getElementById(
-        "nameScreen"
-    ).classList.remove("hidden");
+    document
+        .getElementById("nameScreen")
+        .classList.remove("hidden");
 
 
-    document.getElementById(
-        "playerCountText"
-    ).innerText =
-        "Enter names for " +
-        playerCount +
-        " players.";
+    document
+        .getElementById("playerCountText")
+        .textContent =
+        `Enter names for ${playerCount} players.`;
 
 
     createNameInputs();
@@ -287,44 +210,31 @@ function selectPlayerCount() {
 }
 
 
-/*
-=========================================
-CREATE NAME INPUTS
-=========================================
-*/
+// =========================================
+// CREATE NAME INPUTS
+// =========================================
 
 function createNameInputs() {
 
     const container =
-        document.getElementById(
-            "nameInputs"
-        );
-
+        document.getElementById("nameInputs");
 
     container.innerHTML = "";
 
 
-    for (
-        let i = 1;
-        i <= playerCount;
-        i++
-    ) {
+    for (let i = 0; i < playerCount; i++) {
 
         const input =
-            document.createElement(
-                "input"
-            );
-
+            document.createElement("input");
 
         input.type = "text";
 
-        input.id =
-            "player" + i;
+        input.id = `playerName${i}`;
 
         input.placeholder =
-            "Player " + i;
+            `Player ${i + 1} name`;
 
-        input.maxLength = 25;
+        input.className = "name-input";
 
 
         container.appendChild(input);
@@ -334,68 +244,89 @@ function createNameInputs() {
 }
 
 
-/*
-=========================================
-BACK
-=========================================
-*/
+// =========================================
+// GO BACK TO PLAYER COUNT
+// =========================================
 
 function goBackToCount() {
 
-    document.getElementById(
-        "nameScreen"
-    ).classList.add("hidden");
+    document
+        .getElementById("nameScreen")
+        .classList.add("hidden");
 
 
-    document.getElementById(
-        "playerCountScreen"
-    ).classList.remove("hidden");
+    document
+        .getElementById("playerCountScreen")
+        .classList.remove("hidden");
 
 }
 
 
-/*
-=========================================
-START GAME
-=========================================
-*/
+// =========================================
+// SHUFFLE ARRAY
+// =========================================
+
+function shuffle(array) {
+
+    for (
+        let i = array.length - 1;
+        i > 0;
+        i--
+    ) {
+
+        const j =
+            Math.floor(
+                Math.random() * (i + 1)
+            );
+
+
+        [
+            array[i],
+            array[j]
+        ] = [
+            array[j],
+            array[i]
+        ];
+
+    }
+
+    return array;
+
+}
+
+
+// =========================================
+// START GAME
+// =========================================
 
 function startGame() {
 
     players = [];
 
-    roundNumber = 1;
+
+    const roleList =
+        getCharacters(playerCount);
 
 
-    /*
-    Get player names
-    */
+    const shuffledRoles =
+        shuffle([...roleList]);
 
-    for (
-        let i = 1;
-        i <= playerCount;
-        i++
-    ) {
+
+    for (let i = 0; i < playerCount; i++) {
 
         const input =
             document.getElementById(
-                "player" + i
+                `playerName${i}`
             );
 
 
-        const name =
+        let name =
             input.value.trim();
 
 
         if (name === "") {
 
-            alert(
-                "Please enter all player names."
-            );
-
-            input.focus();
-
-            return;
+            name = `Player ${i + 1}`;
 
         }
 
@@ -404,131 +335,42 @@ function startGame() {
 
             name: name,
 
-            role: null,
+            character: shuffledRoles[i],
 
-            // Points earned in current round
-            points: 0,
-
-            // Total points from all rounds
-            totalPoints: 0
+            points: 0
 
         });
 
     }
 
 
-    startNewRound();
-
-}
-
-
-/*
-=========================================
-START NEW ROUND
-=========================================
-*/
-
-function startNewRound() {
-
-    currentPlayer = 0;
-
-    policeIndex = -1;
-
-    thiefIndex = -1;
-
-
-    /*
-    Reset current round points
-    */
-
-    players.forEach(player => {
-
-        player.points = 0;
-
-    });
-
-
-    /*
-    Get characters
-    */
-
-    let characters =
-        getCharacters(playerCount);
-
-
-    /*
-    Randomize characters
-    */
-
-    characters =
-        shuffle([...characters]);
-
-
-    /*
-    Assign characters
-    */
-
-    players.forEach(
-        (player, index) => {
-
-            player.role =
-                characters[index];
-
-        }
-    );
-
-
-    /*
-    Find Police
-    */
-
     policeIndex =
         players.findIndex(
             player =>
-                player.role.name === "Police"
+                player.character === "Police"
         );
 
-
-    /*
-    Find Thief
-    */
 
     thiefIndex =
         players.findIndex(
             player =>
-                player.role.name === "Thief"
+                player.character === "Thief"
         );
 
 
-    /*
-    Show character list
-    */
+    document
+        .getElementById("nameScreen")
+        .classList.add("hidden");
+
 
     showCharacters();
-
-
-    document.getElementById(
-        "nameScreen"
-    ).classList.add("hidden");
-
-
-    document.getElementById(
-        "resultScreen"
-    ).classList.add("hidden");
-
-
-    document.getElementById(
-        "characterScreen"
-    ).classList.remove("hidden");
 
 }
 
 
-/*
-=========================================
-SHOW CHARACTER LIST
-=========================================
-*/
+// =========================================
+// SHOW CHARACTERS
+// =========================================
 
 function showCharacters() {
 
@@ -541,59 +383,32 @@ function showCharacters() {
     container.innerHTML = "";
 
 
-    const heading =
-        document.createElement("p");
-
-    heading.innerHTML =
-        "<b>Round " +
-        roundNumber +
-        "</b>";
-
-    container.appendChild(heading);
-
-
     players.forEach(player => {
 
         const card =
-            document.createElement(
-                "div"
-            );
+            document.createElement("div");
 
 
         card.className =
             "character-card";
 
 
+        const character =
+            characters[player.character];
+
+
         card.innerHTML = `
 
-            <div class="character-emoji">
-                ${player.role.emoji}
+            <div class="role-emoji">
+                ${character.emoji}
             </div>
 
-            <div class="character-info">
+            <div class="role-name">
+                ${player.character}
+            </div>
 
-                <div class="character-name">
-                    ${player.role.name}
-                </div>
-
-                <div class="character-points">
-
-                    ${
-                        player.role.name === "Police" ||
-                        player.role.name === "Thief"
-
-                        ?
-
-                        "Guess dependent"
-
-                        :
-
-                        player.role.points +
-                        " points"
-                    }
-
-                </div>
-
+            <div class="points">
+                ${character.points} points
             </div>
 
         `;
@@ -603,28 +418,26 @@ function showCharacters() {
 
     });
 
+
+    document
+        .getElementById("characterScreen")
+        .classList.remove("hidden");
+
 }
 
 
-/*
-=========================================
-START ROLE REVEAL
-=========================================
-*/
+// =========================================
+// START ROLE REVEAL
+// =========================================
 
 function startRoleReveal() {
 
+    document
+        .getElementById("characterScreen")
+        .classList.add("hidden");
+
+
     currentPlayer = 0;
-
-
-    document.getElementById(
-        "characterScreen"
-    ).classList.add("hidden");
-
-
-    document.getElementById(
-        "roleScreen"
-    ).classList.remove("hidden");
 
 
     showCurrentPlayer();
@@ -632,11 +445,9 @@ function startRoleReveal() {
 }
 
 
-/*
-=========================================
-SHOW CURRENT PLAYER
-=========================================
-*/
+// =========================================
+// SHOW CURRENT PLAYER
+// =========================================
 
 function showCurrentPlayer() {
 
@@ -644,36 +455,37 @@ function showCurrentPlayer() {
         players[currentPlayer];
 
 
-    document.getElementById(
-        "currentPlayer"
-    ).innerText =
-
-        player.name +
-        "'s Turn";
+    document
+        .getElementById("roleScreen")
+        .classList.remove("hidden");
 
 
-    document.getElementById(
-        "roleDisplay"
-    ).innerHTML = "";
+    document
+        .getElementById("currentPlayer")
+        .textContent =
+        `🎮 ${player.name}`;
 
 
-    document.getElementById(
-        "revealButton"
-    ).classList.remove("hidden");
+    document
+        .getElementById("roleDisplay")
+        .innerHTML = "";
 
 
-    document.getElementById(
-        "nextButton"
-    ).classList.add("hidden");
+    document
+        .getElementById("revealButton")
+        .classList.remove("hidden");
+
+
+    document
+        .getElementById("nextButton")
+        .classList.add("hidden");
 
 }
 
 
-/*
-=========================================
-REVEAL ROLE
-=========================================
-*/
+// =========================================
+// REVEAL ROLE
+// =========================================
 
 function revealRole() {
 
@@ -681,91 +493,92 @@ function revealRole() {
         players[currentPlayer];
 
 
-    let pointsText;
+    const character =
+        characters[player.character];
 
 
-    if (
-
-        player.role.name === "Police" ||
-
-        player.role.name === "Thief"
-
-    ) {
-
-        pointsText =
-            "Your points depend on the Police's guess.";
-
-    }
-
-    else {
-
-        pointsText =
-            player.role.points +
-            " Points";
-
-    }
+    const display =
+        document.getElementById(
+            "roleDisplay"
+        );
 
 
-    document.getElementById(
-        "roleDisplay"
-    ).innerHTML = `
+    display.innerHTML = `
 
-        <div class="role-emoji">
+        <div class="role-card">
 
-            ${player.role.emoji}
+            <div class="role-emoji">
+                ${character.emoji}
+            </div>
 
-        </div>
+            <div class="role-name">
+                ${player.character}
+            </div>
 
-
-        <div class="role-name">
-
-            ${player.role.name}
-
-        </div>
-
-
-        <div class="points">
-
-            ${pointsText}
+            <div class="points">
+                ${character.points} points
+            </div>
 
         </div>
 
     `;
 
 
-    document.getElementById(
-        "revealButton"
-    ).classList.add("hidden");
-
-
-    document.getElementById(
-        "nextButton"
-    ).classList.remove("hidden");
-
-}
-
-
-/*
-=========================================
-NEXT PLAYER
-=========================================
-*/
-
-function nextPlayer() {
-
-    currentPlayer++;
+    document
+        .getElementById("revealButton")
+        .classList.add("hidden");
 
 
     if (
         currentPlayer <
-        players.length
+        players.length - 1
     ) {
+
+        document
+            .getElementById("nextButton")
+            .classList.remove("hidden");
+
+    }
+
+    else {
+
+        document
+            .getElementById("nextButton")
+            .classList.remove("hidden");
+
+
+        document
+            .getElementById("nextButton")
+            .textContent =
+            "👮 Start Police Round";
+
+    }
+
+}
+
+
+// =========================================
+// NEXT PLAYER
+// =========================================
+
+function nextPlayer() {
+
+    if (
+        currentPlayer <
+        players.length - 1
+    ) {
+
+        currentPlayer++;
 
         showCurrentPlayer();
 
     }
 
     else {
+
+        document
+            .getElementById("roleScreen")
+            .classList.add("hidden");
 
         startPoliceRound();
 
@@ -774,90 +587,64 @@ function nextPlayer() {
 }
 
 
-/*
-=========================================
-POLICE ROUND
-=========================================
-*/
+// =========================================
+// START POLICE ROUND
+// =========================================
 
 function startPoliceRound() {
-
-    document.getElementById(
-        "roleScreen"
-    ).classList.add("hidden");
-
-
-    document.getElementById(
-        "policeScreen"
-    ).classList.remove("hidden");
-
 
     const police =
         players[policeIndex];
 
 
-    document.getElementById(
-        "policeMessage"
-    ).innerText =
-
-        police.name +
-
-        ", you are the Police. " +
-
-        "Who do you think is the Thief?";
+    document
+        .getElementById("policeScreen")
+        .classList.remove("hidden");
 
 
-    const buttons =
+    document
+        .getElementById("policeMessage")
+        .textContent =
+        `${police.name}, identify the Thief!`;
+
+
+    const container =
         document.getElementById(
             "guessButtons"
         );
 
 
-    buttons.innerHTML = "";
+    container.innerHTML = "";
 
 
     players.forEach(
         (player, index) => {
 
-            /*
-            Police cannot select themselves
-            */
-
-            if (
-                index === policeIndex
-            ) {
-
+            if (index === policeIndex) {
                 return;
-
             }
 
 
             const button =
-                document.createElement(
-                    "button"
-                );
+                document.createElement("button");
 
 
             button.className =
                 "guess-button";
 
 
-            button.innerText =
-
-                "🔎 " +
+            button.textContent =
                 player.name;
 
 
-            button.onclick =
+            button.onclick = function () {
 
-                function () {
+                makeGuess(index);
 
-                    makeGuess(index);
-
-                };
+            };
 
 
-            buttons.appendChild(button);
+            container.appendChild(button);
 
         }
     );
@@ -865,155 +652,124 @@ function startPoliceRound() {
 }
 
 
-/*
-=========================================
-MAKE GUESS
-=========================================
-*/
+// =========================================
+// MAKE GUESS
+// =========================================
 
 function makeGuess(guessIndex) {
 
-    const correct =
-
-        guessIndex ===
-        thiefIndex;
+    const police =
+        players[policeIndex];
 
 
-    /*
-    Correct guess
-    */
-
-    if (correct) {
-
-        players[policeIndex]
-            .points = 100;
+    const thief =
+        players[thiefIndex];
 
 
-        players[thiefIndex]
-            .points = 0;
+    const guessedPlayer =
+        players[guessIndex];
+
+
+    let policePoints = 0;
+
+    let thiefPoints = 0;
+
+
+    if (guessIndex === thiefIndex) {
+
+        policePoints = 100;
+
+        thiefPoints = 0;
 
     }
-
-
-    /*
-    Wrong guess
-    */
 
     else {
 
-        players[policeIndex]
-            .points = 0;
+        policePoints = 0;
 
-
-        players[thiefIndex]
-            .points = 100;
+        thiefPoints = 100;
 
     }
 
 
-    /*
-    Give normal points
-    */
+    police.points = policePoints;
 
-    players.forEach(player => {
 
-        if (
+    thief.points = thiefPoints;
 
-            player.role.name !== "Police" &&
 
-            player.role.name !== "Thief"
+    players.forEach(
+        player => {
 
-        ) {
+            if (
+                player !== police &&
+                player !== thief
+            ) {
 
-            player.points =
-                player.role.points;
+                player.points =
+                    characters[
+                        player.character
+                    ].points;
+
+            }
 
         }
-
-    });
-
-
-    /*
-    ADD THIS ROUND'S POINTS
-    TO TOTAL POINTS
-    */
-
-    players.forEach(player => {
-
-        player.totalPoints +=
-            player.points;
-
-    });
+    );
 
 
-    showResult(correct);
+    document
+        .getElementById("policeScreen")
+        .classList.add("hidden");
+
+
+    showResult(
+        guessIndex === thiefIndex,
+        guessedPlayer
+    );
 
 }
 
 
-/*
-=========================================
-SHOW RESULT
-=========================================
-*/
+// =========================================
+// SHOW RESULT
+// =========================================
 
-function showResult(correct) {
+function showResult(
+    correct,
+    guessedPlayer
+) {
 
-    document.getElementById(
-        "policeScreen"
-    ).classList.add("hidden");
+    const title =
+        document.getElementById(
+            "resultTitle"
+        );
 
 
-    document.getElementById(
-        "resultScreen"
-    ).classList.remove("hidden");
+    const message =
+        document.getElementById(
+            "resultMessage"
+        );
 
 
     if (correct) {
 
-        document.getElementById(
-            "resultTitle"
-        ).innerHTML =
-
-            `<span class="correct">
-
-                🎉 Correct Guess!
-
-            </span>`;
+        title.textContent =
+            "🎉 Police Caught the Thief!";
 
 
-        document.getElementById(
-            "resultMessage"
-        ).innerText =
-
-            players[policeIndex].name +
-
-            " correctly identified the Thief!";
+        message.textContent =
+            `${guessedPlayer.name} was the Thief.`;
 
     }
 
     else {
 
-        document.getElementById(
-            "resultTitle"
-        ).innerHTML =
-
-            `<span class="wrong">
-
-                ❌ Wrong Guess!
-
-            </span>`;
+        title.textContent =
+            "😈 The Thief Escaped!";
 
 
-        document.getElementById(
-            "resultMessage"
-        ).innerText =
-
-            "The Thief was " +
-
-            players[thiefIndex].name +
-
-            ".";
+        message.textContent =
+            `${guessedPlayer.name} was not the Thief.`;
 
     }
 
@@ -1021,218 +777,36 @@ function showResult(correct) {
     showScoreboard();
 
 
-    /*
-    CREATE NEXT ROUND BUTTON
-    */
-
-    const resultScreen =
-        document.getElementById(
-            "resultScreen"
-        );
-
-
-    /*
-    Remove old game buttons
-    */
-
-    const oldButtons =
-        document.getElementById(
-            "roundButtons"
-        );
-
-
-    if (oldButtons) {
-
-        oldButtons.remove();
-
-    }
-
-
-    const buttonContainer =
-        document.createElement("div");
-
-
-    buttonContainer.id =
-        "roundButtons";
-
-
-    buttonContainer.innerHTML = `
-
-        <button onclick="nextRound()">
-
-            🎲 Next Round
-
-        </button>
-
-        <button
-            class="secondary"
-            onclick="stopGame()">
-
-            🛑 Stop Game
-
-        </button>
-
-    `;
-
-
-    resultScreen.appendChild(
-        buttonContainer
-    );
+    document
+        .getElementById("resultScreen")
+        .classList.remove("hidden");
 
 }
 
 
-/*
-=========================================
-NEXT ROUND
-=========================================
-*/
-
-function nextRound() {
-
-    roundNumber++;
-
-    startNewRound();
-
-}
-
-
-/*
-=========================================
-STOP GAME
-=========================================
-*/
-
-function stopGame() {
-
-    /*
-    Hide current screens
-    */
-
-    document.getElementById(
-        "characterScreen"
-    ).classList.add("hidden");
-
-
-    document.getElementById(
-        "roleScreen"
-    ).classList.add("hidden");
-
-
-    document.getElementById(
-        "policeScreen"
-    ).classList.add("hidden");
-
-
-    /*
-    Show final result
-    */
-
-    document.getElementById(
-        "resultScreen"
-    ).classList.remove("hidden");
-
-
-    document.getElementById(
-        "resultTitle"
-    ).innerHTML =
-
-        `<span class="correct">
-
-            🏆 Final Scores
-
-        </span>`;
-
-
-    document.getElementById(
-        "resultMessage"
-    ).innerText =
-
-        "Game stopped after " +
-        roundNumber +
-        " round(s).";
-
-
-    showFinalScoreboard();
-
-
-    /*
-    Remove round buttons
-    */
-
-    const roundButtons =
-        document.getElementById(
-            "roundButtons"
-        );
-
-
-    if (roundButtons) {
-
-        roundButtons.remove();
-
-    }
-
-
-    /*
-    Add New Game button
-    */
-
-    const newGameButton =
-        document.createElement("button");
-
-
-    newGameButton.innerText =
-        "🔄 New Game";
-
-
-    newGameButton.onclick =
-        function () {
-
-            newGame();
-
-        };
-
-
-    document.getElementById(
-        "resultScreen"
-    ).appendChild(
-        newGameButton
-    );
-
-}
-
-
-/*
-=========================================
-ROUND SCOREBOARD
-=========================================
-*/
+// =========================================
+// SHOW SCOREBOARD
+// =========================================
 
 function showScoreboard() {
 
-    let html = `
+    const container =
+        document.getElementById(
+            "scoreBoard"
+        );
 
-        <h3>Round ${roundNumber} Scores</h3>
+
+    let html = `
 
         <table class="score-table">
 
             <tr>
 
-                <th>
-                    Player
-                </th>
+                <th>Player</th>
 
-                <th>
-                    Character
-                </th>
+                <th>Character</th>
 
-                <th>
-                    Round Points
-                </th>
-
-                <th>
-                    Total
-                </th>
+                <th>Points</th>
 
             </tr>
 
@@ -1250,20 +824,12 @@ function showScoreboard() {
                 </td>
 
                 <td>
-                    ${player.role.emoji}
-                    ${player.role.name}
+                    ${characters[player.character].emoji}
+                    ${player.character}
                 </td>
 
                 <td>
-                    <b>
-                        ${player.points}
-                    </b>
-                </td>
-
-                <td>
-                    <b>
-                        ${player.totalPoints}
-                    </b>
+                    ${player.points}
                 </td>
 
             </tr>
@@ -1273,106 +839,38 @@ function showScoreboard() {
     });
 
 
-    html += `
-
-        </table>
-
-    `;
+    html += `</table>`;
 
 
-    document.getElementById(
-        "scoreBoard"
-    ).innerHTML = html;
+    container.innerHTML = html;
 
 }
 
 
-/*
-=========================================
-FINAL SCOREBOARD
-=========================================
-*/
-
-function showFinalScoreboard() {
-
-    let html = `
-
-        <h3>🏆 Total Points After ${roundNumber} Rounds</h3>
-
-        <table class="score-table">
-
-            <tr>
-
-                <th>
-                    Player
-                </th>
-
-                <th>
-                    Total Points
-                </th>
-
-            </tr>
-
-    `;
-
-
-    /*
-    Sort players by total points
-    */
-
-    const finalPlayers =
-        [...players].sort(
-            (a, b) =>
-                b.totalPoints -
-                a.totalPoints
-        );
-
-
-    finalPlayers.forEach(player => {
-
-        html += `
-
-            <tr>
-
-                <td>
-                    ${player.name}
-                </td>
-
-                <td>
-                    <b>
-                        ${player.totalPoints}
-                    </b>
-                </td>
-
-            </tr>
-
-        `;
-
-    });
-
-
-    html += `
-
-        </table>
-
-    `;
-
-
-    document.getElementById(
-        "scoreBoard"
-    ).innerHTML = html;
-
-}
-
-
-/*
-=========================================
-NEW GAME
-=========================================
-*/
+// =========================================
+// NEW GAME
+// =========================================
 
 function newGame() {
 
-    location.reload();
+    players = [];
+
+    currentPlayer = 0;
+
+    policeIndex = -1;
+
+    thiefIndex = -1;
+
+    gameMode = "";
+
+
+    document
+        .getElementById("resultScreen")
+        .classList.add("hidden");
+
+
+    document
+        .getElementById("gameModeScreen")
+        .classList.remove("hidden");
 
 }
