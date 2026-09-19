@@ -1,0 +1,398 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+
+body {
+
+    font-family: Arial, sans-serif;
+
+    background:
+        linear-gradient(
+            135deg,
+            #111827,
+            #1e3a8a
+        );
+
+    min-height: 100vh;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    padding: 20px;
+}
+
+
+.game-container {
+
+    width: 100%;
+
+    max-width: 650px;
+
+    background: white;
+
+    padding: 30px;
+
+    border-radius: 20px;
+
+    text-align: center;
+
+    box-shadow:
+        0 15px 40px
+        rgba(0, 0, 0, 0.3);
+
+}
+
+
+h1 {
+
+    font-size: 34px;
+
+    margin-bottom: 8px;
+
+}
+
+
+.subtitle {
+
+    color: #666;
+
+    margin-bottom: 25px;
+
+}
+
+
+.screen h2 {
+
+    margin-bottom: 15px;
+
+}
+
+
+.screen p {
+
+    margin-bottom: 20px;
+
+    color: #555;
+
+}
+
+
+/* SELECT */
+
+select {
+
+    width: 100%;
+
+    padding: 14px;
+
+    font-size: 16px;
+
+    border: 2px solid #ddd;
+
+    border-radius: 10px;
+
+    margin-bottom: 15px;
+
+}
+
+
+/* INPUTS */
+
+input {
+
+    width: 100%;
+
+    padding: 14px;
+
+    margin-bottom: 12px;
+
+    border:
+
+        2px solid #ddd;
+
+    border-radius: 10px;
+
+    font-size: 16px;
+
+}
+
+
+input:focus,
+select:focus {
+
+    outline: none;
+
+    border-color: #2563eb;
+
+}
+
+
+/* BUTTON */
+
+button {
+
+    width: 100%;
+
+    padding: 14px;
+
+    margin-top: 10px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background: #2563eb;
+
+    color: white;
+
+    font-size: 16px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+}
+
+
+button:hover {
+
+    background: #1d4ed8;
+
+}
+
+
+button.secondary {
+
+    background: #6b7280;
+
+}
+
+
+button.secondary:hover {
+
+    background: #4b5563;
+
+}
+
+
+.hidden {
+
+    display: none !important;
+
+}
+
+
+/* CHARACTER CARDS */
+
+.character-card {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    padding: 14px;
+
+    margin-bottom: 10px;
+
+    background: #f3f4f6;
+
+    border-radius: 12px;
+
+    text-align: left;
+
+}
+
+
+.character-emoji {
+
+    font-size: 40px;
+
+}
+
+
+.character-info {
+
+    flex: 1;
+
+}
+
+
+.character-name {
+
+    font-size: 18px;
+
+    font-weight: bold;
+
+}
+
+
+.character-points {
+
+    color: #2563eb;
+
+    font-weight: bold;
+
+    margin-top: 4px;
+
+}
+
+
+/* ROLE */
+
+#roleDisplay {
+
+    margin: 25px 0;
+
+    padding: 30px;
+
+    border-radius: 15px;
+
+    background: #f3f4f6;
+
+}
+
+
+.role-emoji {
+
+    font-size: 75px;
+
+}
+
+
+.role-name {
+
+    font-size: 32px;
+
+    font-weight: bold;
+
+    margin-top: 10px;
+
+}
+
+
+.points {
+
+    font-size: 20px;
+
+    margin-top: 10px;
+
+    color: #2563eb;
+
+    font-weight: bold;
+
+}
+
+
+/* POLICE */
+
+.guess-button {
+
+    background: #dc2626;
+
+}
+
+
+.guess-button:hover {
+
+    background: #b91c1c;
+
+}
+
+
+/* RESULT */
+
+.correct {
+
+    color: #16a34a;
+
+    font-size: 26px;
+
+    font-weight: bold;
+
+}
+
+
+.wrong {
+
+    color: #dc2626;
+
+    font-size: 26px;
+
+    font-weight: bold;
+
+}
+
+
+/* SCOREBOARD */
+
+.score-table {
+
+    width: 100%;
+
+    border-collapse: collapse;
+
+    margin-top: 20px;
+
+    margin-bottom: 20px;
+
+}
+
+
+.score-table th,
+.score-table td {
+
+    border-bottom:
+        1px solid #ddd;
+
+    padding: 12px;
+
+}
+
+
+.score-table th {
+
+    background: #f3f4f6;
+
+}
+
+
+/* MOBILE */
+
+@media (max-width: 500px) {
+
+    body {
+
+        padding: 10px;
+
+    }
+
+
+    .game-container {
+
+        padding: 20px;
+
+    }
+
+
+    h1 {
+
+        font-size: 27px;
+
+    }
+
+
+    .role-emoji {
+
+        font-size: 60px;
+
+    }
+
+}
