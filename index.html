@@ -1,49 +1,151 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>Police & Thief</title>
 
-    <link rel="stylesheet" href="style.css">
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
 </head>
+
 
 <body>
 
 <div class="game-container">
 
     <h1>👮 Police & Thief 🕵️</h1>
-    <p class="subtitle">Find the hidden Thief!</p>
+
+    <p class="subtitle">
+        Find the hidden Thief!
+    </p>
 
 
-    <!-- PLAYER COUNT -->
-    <div id="playerCountScreen" class="screen">
+    <!-- =====================================
+         GAME MODE SCREEN
+    ====================================== -->
 
-        <h2>👥 Number of Players</h2>
+    <div
+        id="gameModeScreen"
+        class="screen"
+    >
 
-        <p>Select how many people are playing.</p>
+        <h2>🎮 Choose Game Mode</h2>
 
-        <select id="playerCount">
+        <p>
+            How do you want to play?
+        </p>
 
-            <option value="3">3 Players</option>
-            <option value="4">4 Players</option>
-            <option value="5" selected>5 Players</option>
-            <option value="6">6 Players</option>
-            <option value="7">7 Players</option>
-            <option value="8">8 Players</option>
 
-        </select>
+        <button
+            onclick="selectGameMode('offline')"
+        >
 
-        <button onclick="selectPlayerCount()">
-            Continue →
+            📱 Offline Game
+
+        </button>
+
+
+        <button
+            onclick="selectGameMode('online')"
+        >
+
+            🌐 Online Game
+
         </button>
 
     </div>
 
 
-    <!-- NAME SCREEN -->
-    <div id="nameScreen" class="screen hidden">
+
+    <!-- =====================================
+         PLAYER COUNT
+    ====================================== -->
+
+    <div
+        id="playerCountScreen"
+        class="screen hidden"
+    >
+
+        <h2>👥 Number of Players</h2>
+
+        <p>
+            Select how many people are playing.
+        </p>
+
+
+        <select id="playerCount">
+
+            <option value="3">
+                3 Players
+            </option>
+
+            <option value="4">
+                4 Players
+            </option>
+
+            <option
+                value="5"
+                selected
+            >
+                5 Players
+            </option>
+
+            <option value="6">
+                6 Players
+            </option>
+
+            <option value="7">
+                7 Players
+            </option>
+
+            <option value="8">
+                8 Players
+            </option>
+
+        </select>
+
+
+        <button
+            onclick="selectPlayerCount()"
+        >
+
+            Continue →
+
+        </button>
+
+
+        <button
+            class="secondary"
+            onclick="backToGameMode()"
+        >
+
+            ← Back
+
+        </button>
+
+    </div>
+
+
+
+    <!-- =====================================
+         NAME SCREEN
+    ====================================== -->
+
+    <div
+        id="nameScreen"
+        class="screen hidden"
+    >
 
         <h2>👥 Enter Player Names</h2>
 
@@ -51,33 +153,63 @@
 
         <div id="nameInputs"></div>
 
-        <button onclick="startGame()">
+
+        <button
+            onclick="startGame()"
+        >
+
             🎲 Start Game
+
         </button>
 
-        <button class="secondary" onclick="goBackToCount()">
+
+        <button
+            class="secondary"
+            onclick="goBackToCount()"
+        >
+
             ← Back
+
         </button>
 
     </div>
 
 
-    <!-- ROLE INFORMATION -->
-    <div id="characterScreen" class="screen hidden">
+
+    <!-- =====================================
+         ROLE INFORMATION
+    ====================================== -->
+
+    <div
+        id="characterScreen"
+        class="screen hidden"
+    >
 
         <h2>🎭 Characters</h2>
 
         <div id="characterList"></div>
 
-        <button onclick="startRoleReveal()">
+
+        <button
+            onclick="startRoleReveal()"
+        >
+
             Continue →
+
         </button>
 
     </div>
 
 
-    <!-- ROLE REVEAL -->
-    <div id="roleScreen" class="screen hidden">
+
+    <!-- =====================================
+         ROLE REVEAL
+    ====================================== -->
+
+    <div
+        id="roleScreen"
+        class="screen hidden"
+    >
 
         <h2 id="currentPlayer"></h2>
 
@@ -85,16 +217,25 @@
             Pass the phone to this player.
         </p>
 
-        <button id="revealButton" onclick="revealRole()">
+
+        <button
+            id="revealButton"
+            onclick="revealRole()"
+        >
+
             👀 Reveal My Role
+
         </button>
 
+
         <div id="roleDisplay"></div>
+
 
         <button
             id="nextButton"
             class="hidden"
-            onclick="nextPlayer()">
+            onclick="nextPlayer()"
+        >
 
             Next Player →
 
@@ -103,8 +244,15 @@
     </div>
 
 
-    <!-- POLICE SCREEN -->
-    <div id="policeScreen" class="screen hidden">
+
+    <!-- =====================================
+         POLICE SCREEN
+    ====================================== -->
+
+    <div
+        id="policeScreen"
+        class="screen hidden"
+    >
 
         <h2>👮 Police Investigation</h2>
 
@@ -115,8 +263,15 @@
     </div>
 
 
-    <!-- RESULT -->
-    <div id="resultScreen" class="screen hidden">
+
+    <!-- =====================================
+         RESULT
+    ====================================== -->
+
+    <div
+        id="resultScreen"
+        class="screen hidden"
+    >
 
         <h2 id="resultTitle"></h2>
 
@@ -124,11 +279,17 @@
 
         <div id="scoreBoard"></div>
 
-        <button onclick="newGame()">
+
+        <button
+            onclick="newGame()"
+        >
+
             🔄 New Game
+
         </button>
 
     </div>
+
 
 </div>
 
@@ -136,4 +297,5 @@
 <script src="script.js"></script>
 
 </body>
+
 </html>
